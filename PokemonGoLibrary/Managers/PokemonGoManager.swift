@@ -119,7 +119,7 @@ final class PokemonGoManager {
                         
                         continue
                     }
-                    
+
                     if columns.count == 5 {
                         currentTier = Rank(rawValue: try columns[0].text()) ?? .b
                     }

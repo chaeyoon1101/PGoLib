@@ -11,8 +11,7 @@ import Kingfisher
 struct PokemonImageView: View {
     @State private var image: KFImage?
     
-    let pokemonID: String
-    let isShadow: Bool
+    let pokemon: BattleLeagueElement
     
     @EnvironmentObject private var dataModel: DataModel
     
@@ -31,7 +30,7 @@ struct PokemonImageView: View {
                 }
             }
             
-            if isShadow {
+            if pokemon.isShadow {
                 Image("shadow")
                     .resizable()
                     .frame(width: 18, height: 18)
@@ -43,11 +42,11 @@ struct PokemonImageView: View {
     }
     
     func loadImages() async {
-        guard let pokemon = dataModel.findPokemon(id: pokemonID) else {
+        guard let pokemon = dataModel.findPokemon(id: pokemon.id) else {
             return
         }
         
-        if let form = pokemon.regionForms?[pokemonID.uppercased()] {
+        if let form = pokemon.regionForms?[pokemon.id.uppercased()] {
             let url = URL(string: form.assets?.image ?? "")
           
             image = KFImage(url)
@@ -57,8 +56,4 @@ struct PokemonImageView: View {
             image = KFImage(url)
         }
     }
-}
-
-#Preview {
-    PokemonImageView(pokemonID: "", isShadow: true)
 }

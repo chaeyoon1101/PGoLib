@@ -19,7 +19,7 @@ struct BattleTierCell: View {
                     .frame(width: proxy.size.width * 0.1)
                 
                 HStack {
-                    PokemonImageView(pokemonID: pokemon.id, isShadow: pokemon.isShadow)
+                    PokemonImageView(pokemon: pokemon)
                     Text(pokemon.name)
                     Spacer()
                 }
