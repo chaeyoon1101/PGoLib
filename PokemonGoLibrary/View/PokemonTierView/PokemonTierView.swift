@@ -122,7 +122,7 @@ struct PokemonTierView: View {
                     }
                 }
             }
-            .padding(.horizontal, 16)
+            .padding(.horizontal)
         }
     }
 }

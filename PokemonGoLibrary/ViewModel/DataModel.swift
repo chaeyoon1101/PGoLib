@@ -70,7 +70,6 @@ class DataModel: ObservableObject {
     func findPokemon(id: String) -> PokemonElement? {
         var pokemon: PokemonElement?
         
-        print(id)
         let splitedId = id.split(separator: "_").map { String($0) }
         var storedId: [String] = []
         

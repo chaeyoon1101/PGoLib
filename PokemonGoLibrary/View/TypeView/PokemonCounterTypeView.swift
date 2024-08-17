@@ -40,9 +40,12 @@ struct PokemonCounterTypeView: View {
                         RoundedRectangle(cornerRadius: 8)
                             .stroke(types[index].backgroundColor, lineWidth: 2)
                     )
-
-                    
                 }
+            }
+            .onChange(of: selectedIndexes) { _, newSelectedIndexes in
+                let selectedTypes = newSelectedIndexes.map { types[$0] }
+                
+                let effectiveness = TypeEffectiveness().calculate(selectedTypes)
             }
         }
         .padding()
@@ -51,9 +54,15 @@ struct PokemonCounterTypeView: View {
     }
     
     private func select(_ index: Int) {
+        guard !selectedIndexes.contains(index) else {
+            selectedIndexes.removeAll { $0 == index }
+            return
+        }
+        
         if selectedIndexes.count == 2 {
             selectedIndexes.removeFirst()
         }
+        
         selectedIndexes.append(index)
     }
     
