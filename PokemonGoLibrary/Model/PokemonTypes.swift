@@ -1,6 +1,6 @@
 import SwiftUI
 
-enum PokemonTypes: String {
+enum PokemonTypes: String, CaseIterable {
     case bug      = "POKEMON_TYPE_BUG"
     case dark     = "POKEMON_TYPE_DARK"
     case dragon   = "POKEMON_TYPE_DRAGON"
@@ -68,24 +68,24 @@ enum PokemonTypes: String {
     
     var name: String {
         switch self {
-        case .bug:      return "벌레 타입"
-        case .dark:     return "악 타입"
-        case .dragon:   return "드래곤 타입"
-        case .electric: return "전기 타입"
-        case .fire:     return "불꽃 타입"
-        case .fairy:    return "페어리 타입"
-        case .fighting: return "격투 타입"
-        case .flying:   return "비행 타입"
-        case .ghost:    return "고스트 타입"
-        case .grass:    return "풀 타입"
-        case .ground:   return "땅 타입"
-        case .ice:      return "얼음 타입"
-        case .normal:   return "노말 타입"
-        case .poison:   return "독 타입"
-        case .psychic:  return "에스퍼 타입"
-        case .rock:     return "바위 타입"
-        case .steel:    return "강철 타입"
-        case .water:    return "물 타입"
+        case .bug:      return "벌레"
+        case .dark:     return "악"
+        case .dragon:   return "드래곤"
+        case .electric: return "전기"
+        case .fire:     return "불꽃"
+        case .fairy:    return "페어리"
+        case .fighting: return "격투"
+        case .flying:   return "비행"
+        case .ghost:    return "고스트"
+        case .grass:    return "풀"
+        case .ground:   return "땅"
+        case .ice:      return "얼음"
+        case .normal:   return "노말"
+        case .poison:   return "독"
+        case .psychic:  return "에스퍼"
+        case .rock:     return "바위"
+        case .steel:    return "강철"
+        case .water:    return "물"
         }
     }
 }
