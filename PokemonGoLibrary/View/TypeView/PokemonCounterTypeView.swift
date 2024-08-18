@@ -7,12 +7,14 @@
 
 import SwiftUI
 
+
 struct PokemonCounterTypeView: View {
     let types = PokemonTypes.allCases
     
     let columns: [GridItem] = Array(repeating: GridItem(.flexible()), count: 4)
     
     @State var selectedIndexes = [Int]()
+    @State var effectiveness: Effectiveness?
     
     var body: some View {
         LazyVGrid(columns: columns, spacing: 8) {
@@ -27,7 +29,7 @@ struct PokemonCounterTypeView: View {
                             .fontWeight(.semibold)
                             .foregroundColor(
                                 isSelected(index) ?
-                                .white : .primary
+                                    .white : .primary
                             )
                             .background(
                                 isSelected(index) ?
@@ -44,13 +46,28 @@ struct PokemonCounterTypeView: View {
             }
             .onChange(of: selectedIndexes) { _, newSelectedIndexes in
                 let selectedTypes = newSelectedIndexes.map { types[$0] }
+                let typeEffectiveness = TypeEffectiveness()
                 
-                let effectiveness = TypeEffectiveness().calculate(selectedTypes)
+                effectiveness = typeEffectiveness.calculate(selectedTypes)
             }
         }
+        .navigationTitle("타입 및 상성")
         .padding()
         
         Spacer()
+        
+        if let effectiveness = effectiveness {
+            ScrollView {
+                VStack(spacing: 18) {
+                    EffectivenessView(title: "유리한 상성", effectiveness: effectiveness.weakness)
+                    
+                    EffectivenessView(title: "불리한 상성", effectiveness: effectiveness.resistance)
+                    
+                    EffectivenessView(title: "중립 상성", effectiveness: effectiveness.neutral)
+                }
+                .padding()
+            }
+        }
     }
     
     private func select(_ index: Int) {

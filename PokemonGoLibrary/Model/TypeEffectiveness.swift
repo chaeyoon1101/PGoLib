@@ -370,8 +370,10 @@ struct TypeEffectiveness {
             .water   : 0.63,
         ],
     ]
+    
+    func calculate(_ selectedTypes: [PokemonTypes]) -> Effectiveness? {
+        guard !selectedTypes.isEmpty else { return nil }
         
-    func calculate(_ selectedTypes: [PokemonTypes]) -> Effectiveness {
         var mergedEffectiveness = [PokemonTypes: Double]()
         
         selectedTypes.forEach { selectedType in
@@ -382,6 +384,9 @@ struct TypeEffectiveness {
             }
         }
         
-        return Effectiveness(effectiveness: mergedEffectiveness)
+        let sortedEffectiveness = mergedEffectiveness.sorted { $0.key.rawValue < $1.key.rawValue }
+                                                     .map { ($0, $1.rounded(toPlaces: 2)) }
+        
+        return Effectiveness(effectiveness: sortedEffectiveness)
     }
 }
