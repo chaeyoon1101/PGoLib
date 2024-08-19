@@ -59,9 +59,9 @@ struct PokemonCounterTypeView: View {
         if let effectiveness = effectiveness {
             ScrollView {
                 VStack(spacing: 18) {
-                    EffectivenessView(title: "유리한 상성", effectiveness: effectiveness.weakness)
+                    EffectivenessView(title: "불리한 상성", effectiveness: effectiveness.weakness)
                     
-                    EffectivenessView(title: "불리한 상성", effectiveness: effectiveness.resistance)
+                    EffectivenessView(title: "유리한 상성", effectiveness: effectiveness.resistance)
                     
                     EffectivenessView(title: "중립 상성", effectiveness: effectiveness.neutral)
                 }
