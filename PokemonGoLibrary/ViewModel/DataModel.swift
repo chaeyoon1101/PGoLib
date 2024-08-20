@@ -14,9 +14,9 @@ class DataModel: ObservableObject {
     @Published var battleLeagueTiers = BattleLeagueTiers()
     
     func fetchDatas() async {
-        await fetchPokemonTiers()
+//        await fetchPokemonTiers()
         await fetchPokemons()
-        await fetchBattleLeagueTiers()
+//        await fetchBattleLeagueTiers()
     }
     
     func fetchPokemons() async {
