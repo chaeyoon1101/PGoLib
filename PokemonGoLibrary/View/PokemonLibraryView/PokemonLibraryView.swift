@@ -11,24 +11,20 @@ struct PokemonLibraryView: View {
     @EnvironmentObject var dataModel: DataModel
     @State private var searchBarText: String = ""
     
-    let columns: [GridItem] = Array(repeating: GridItem(.flexible()), count: 4)
+    let columns: [GridItem] = Array(repeating: GridItem(.flexible()), count: 1)
     
     var body: some View {
         GeometryReader { geometry in
             VStack {
                 SearchBar(text: $searchBarText)
                 ScrollView {
-                    LazyVGrid(columns: columns, spacing: 10) {
-                        let size = max(geometry.size.width / 4 - 10, 50)
-                        
+                    LazyVGrid(columns: [GridItem(.flexible())], spacing: 10) {
                         ForEach(dataModel.pokemons, id: \.id) { pokemon in
                             if (searchBarText == "" || isSearchedPokemon(pokemon)) {
                                 NavigationLink {
                                     PokemonDetailView(pokemon: pokemon)
                                 } label: {
-                                    PokemonLibraryItem(pokemon: pokemon, size: size)
-                                        .frame(width: size, height: size)
-                                        .padding(.vertical, 4)
+                                    PokemonLibraryItem(pokemon: pokemon)
                                 }.buttonStyle(PlainButtonStyle())
                             }
                         }

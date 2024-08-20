@@ -11,38 +11,62 @@ import Kingfisher
 struct PokemonLibraryItem: View {
     let pokemon: PokemonElement
     
-    let size: CGFloat
-    
     var body: some View {
-        VStack {
-            pokemonImage
+        HStack {
+            VStack(alignment: .leading) {
+                Text("No. \(String(pokemon.dexNumber).padEnd(toLength: 4, withPad: "0"))")
+                    .font(.subheadline)
+                    .foregroundStyle(Color.secondary)
                 
-            Text(pokemon.names.localized())
-                .font(.subheadline)
+                
+                Text(pokemon.names.localized())
+                    .font(.title)
+                    .fontWeight(.bold)
+                
+                
+                
+                HStack {
+                    if let primaryType = PokemonTypes(rawValue: pokemon.primaryType.type) {
+                        HStack {
+                            Text(primaryType.name)
+                        }
+                        
+                        .frame(minWidth: 48)
+                        .padding(8)
+                        .background(primaryType.backgroundColor)
+                        .cornerRadius(8)
+                    }
+                    
+                    if let secondaryType = PokemonTypes(rawValue: pokemon.secondaryType?.type ?? "") {
+                        Text(secondaryType.name)
+                            .frame(minWidth: 48)
+                            .padding(8)
+                            .background(secondaryType.backgroundColor)
+                            .cornerRadius(8)
+                    }
+                }
+                .fontWeight(.semibold)
+            }
+            
+            Spacer()
+            VStack {
+                pokemonImage
+            }
+        }
+        .padding(18)
+        .frame(width: 360, height: 120)
+        .background {
+            RoundedRectangle(cornerRadius: 20)
+                .fill(Color.white.opacity(0.1))
         }
     }
     
     var pokemonImage: some View {
-        if let url = pokemon.assets?.image {
-            KFImage(URL(string: url))
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: size * 0.7, height: size * 0.7)
-                .background {
-                    RoundedRectangle(cornerRadius: 20)
-                        .fill(Color.purple.opacity(0.2))
-                        .frame(width: size * 0.9, height: size * 0.9)
-                }
-        } else {
-            KFImage(URL(string: ""))
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: size * 0.7, height: size * 0.7)
-                .background {
-                    RoundedRectangle(cornerRadius: 20)
-                        .fill(Color.purple.opacity(0.2))
-                        .frame(width: size * 0.9, height: size * 0.9)
-                }
-        }
+        let url = pokemon.assets?.image
+        
+        return KFImage(URL(string: url ?? ""))
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            
     }
 }

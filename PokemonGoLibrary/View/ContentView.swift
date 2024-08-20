@@ -5,7 +5,8 @@ struct PokemonViewTypeButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .frame(width: 110, height: 110)
-            .background(Color.lightBlue)
+            .background(Color.cyan)
+            .foregroundStyle(Color.black)
             .clipShape(RoundedRectangle(cornerRadius: 20))
             .opacity(configuration.isPressed ? 0.8 : 1)
             .padding(4)
