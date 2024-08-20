@@ -35,10 +35,10 @@ struct PokemonLibraryView: View {
                     }
                 }
             }
-            
         }
         .navigationTitle("포켓몬 도감")
         .padding()
+        .ignoresSafeArea(edges: .bottom)
     }
     
     private func isSearchedPokemon(_ pokemon: PokemonElement) -> Bool {
