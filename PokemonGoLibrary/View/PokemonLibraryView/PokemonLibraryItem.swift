@@ -27,14 +27,11 @@ struct PokemonLibraryItem: View {
                 
                 HStack {
                     if let primaryType = PokemonTypes(rawValue: pokemon.primaryType.type) {
-                        HStack {
-                            Text(primaryType.name)
-                        }
-                        
-                        .frame(minWidth: 48)
-                        .padding(8)
-                        .background(primaryType.backgroundColor)
-                        .cornerRadius(8)
+                        Text(primaryType.name)
+                            .frame(minWidth: 48)
+                            .padding(8)
+                            .background(primaryType.backgroundColor)
+                            .cornerRadius(8)
                     }
                     
                     if let secondaryType = PokemonTypes(rawValue: pokemon.secondaryType?.type ?? "") {
