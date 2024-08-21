@@ -1,8 +1,3 @@
-// This file was generated from JSON Schema using quicktype, do not modify it directly.
-// To parse the JSON, add this file to your project and do:
-//
-//   let pokemon = try? JSONDecoder().decode(Pokemon.self, from: jsonData)
-
 import Foundation
 
 typealias Pokemon = [PokemonElement]
@@ -17,7 +12,7 @@ struct PokemonElement: Decodable, Identifiable {
     let types: [PokemonTypes]
     let primaryType: PokemonType
     let secondaryType: PokemonType?
-    let pokemonClass: String?
+    let `class`: PokemonClass
     let quickMoves: [String: PokemonMove]?
     let cinematicMoves: [String: PokemonMove]?
     let eliteQuickMoves: [String: PokemonMove]?
@@ -28,7 +23,7 @@ struct PokemonElement: Decodable, Identifiable {
     let evolutions: [Evolution]
     let hasMegaEvolution: Bool
     let megaEvolutions: [String: MegaEvolution]?
-    
+    let cpData: [String]
     
     init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -39,7 +34,6 @@ struct PokemonElement: Decodable, Identifiable {
         self.names = try container.decode(Names.self, forKey: .names)
         self.primaryType = try container.decode(PokemonType.self, forKey: .primaryType)
         self.secondaryType = try container.decodeIfPresent(PokemonType.self, forKey: .secondaryType)
-        self.pokemonClass = try container.decodeIfPresent(String.self, forKey: .pokemonClass)
         self.assetForms = try container.decode([AssetWithType].self, forKey: .assetForms)
         self.evolutions = try container.decode([Evolution].self, forKey: .evolutions)
         self.hasMegaEvolution = try container.decode(Bool.self, forKey: .hasMegaEvolution)
@@ -53,13 +47,16 @@ struct PokemonElement: Decodable, Identifiable {
         self.regionForms = try? container.decodeIfPresent([String: RegionPokemon].self, forKey: .regionForms)
         self.megaEvolutions = try? container.decodeIfPresent([String: MegaEvolution].self, forKey: .megaEvolutions)
         
+        self.class = PokemonClass(rawValue: try container.decodeIfPresent(String.self, forKey: .class) ?? "") ?? .common
         self.types = PokemonElement.normalizedTypes(primaryType: self.primaryType, secondaryType: self.secondaryType)
+        self.cpData = DataManager.shared.getCPData(dexNumber)
     }
     
     enum CodingKeys: String, CodingKey {
         case formID = "formId"
         case dexNumber = "dexNr"
-        case id, generation, names, stats, primaryType, secondaryType, pokemonClass, quickMoves, cinematicMoves, eliteQuickMoves, eliteCinematicMoves, assets, assetForms, regionForms, evolutions, hasMegaEvolution, megaEvolutions
+        case `class` = "pokemonClass"
+        case id, generation, names, stats, primaryType, secondaryType, quickMoves, cinematicMoves, eliteQuickMoves, eliteCinematicMoves, assets, assetForms, regionForms, evolutions, hasMegaEvolution, megaEvolutions
     }
     
     static func normalizedTypes(primaryType: PokemonType, secondaryType: PokemonType?) -> [PokemonTypes] {
@@ -82,9 +79,10 @@ struct RegionPokemon: Decodable {
     let generation: Int
     let names: Names
     let stats: PokemonStats?
+    let types: [PokemonTypes]
     let primaryType: PokemonType
     let secondaryType: PokemonType?
-    let pokemonClass: String?
+    let `class`: PokemonClass
     let quickMoves: [String: PokemonMove]?
     let cinematicMoves: [String: PokemonMove]?
     let eliteQuickMoves: [String: PokemonMove]?
@@ -94,11 +92,13 @@ struct RegionPokemon: Decodable {
     let evolutions: [Evolution]
     let hasMegaEvolution: Bool
     let megaEvolutions: [String: MegaEvolution]?
+    let cpData: [String]
     
     enum CodingKeys: String, CodingKey {
         case formID = "formId"
         case dexNumber = "dexNr"
-        case id, generation, names, stats, primaryType, secondaryType, pokemonClass, quickMoves, cinematicMoves, eliteQuickMoves, eliteCinematicMoves, assets, regionForms, evolutions, hasMegaEvolution, megaEvolutions
+        case `class` = "pokemonClass"
+        case id, generation, names, stats, primaryType, secondaryType, quickMoves, cinematicMoves, eliteQuickMoves, eliteCinematicMoves, assets, regionForms, evolutions, hasMegaEvolution, megaEvolutions
     }
     
     init(from decoder: any Decoder) throws {
@@ -109,9 +109,7 @@ struct RegionPokemon: Decodable {
         self.generation = try container.decode(Int.self, forKey: .generation)
         self.names = try container.decode(Names.self, forKey: .names)
         self.primaryType = try container.decode(PokemonType.self, forKey: .primaryType)
-        self.secondaryType = try container.decodeIfPresent(PokemonType.self, forKey: .secondaryType)
-        self.pokemonClass = try container.decodeIfPresent(String.self, forKey: .pokemonClass)
-        self.assets = try? container.decode(Assets.self, forKey: .assets)
+        self.secondaryType = try container.decodeIfPresent(PokemonType.self, forKey: .secondaryType)        
         self.evolutions = try container.decode([Evolution].self, forKey: .evolutions)
         self.hasMegaEvolution = try container.decode(Bool.self, forKey: .hasMegaEvolution)
         
@@ -120,8 +118,13 @@ struct RegionPokemon: Decodable {
         self.cinematicMoves = try? container.decode([String: PokemonMove].self, forKey: .cinematicMoves)
         self.eliteQuickMoves = try? container.decode([String: PokemonMove].self, forKey: .eliteQuickMoves)
         self.eliteCinematicMoves = try? container.decode([String: PokemonMove].self, forKey: .eliteCinematicMoves)
+        self.assets = try? container.decode(Assets.self, forKey: .assets)
         self.regionForms = try? container.decodeIfPresent([String: RegionPokemon].self, forKey: .regionForms)
         self.megaEvolutions = try? container.decodeIfPresent([String: MegaEvolution].self, forKey: .megaEvolutions)
+        
+        self.class = PokemonClass(rawValue: try container.decodeIfPresent(String.self, forKey: .class) ?? "") ?? .common
+        self.types = PokemonElement.normalizedTypes(primaryType: self.primaryType, secondaryType: self.secondaryType)
+        self.cpData = DataManager.shared.getCPData(dexNumber)
     }
 }
 
