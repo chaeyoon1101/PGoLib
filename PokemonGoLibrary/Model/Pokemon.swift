@@ -49,7 +49,7 @@ struct PokemonElement: Decodable, Identifiable {
         
         self.class = PokemonClass(rawValue: try container.decodeIfPresent(String.self, forKey: .class) ?? "") ?? .common
         self.types = PokemonElement.normalizedTypes(primaryType: self.primaryType, secondaryType: self.secondaryType)
-        self.cpData = DataManager.shared.getCPData(dexNumber)
+        self.cpData = DataManager.shared.getCPData(dexNumber, formID)
     }
     
     enum CodingKeys: String, CodingKey {
@@ -124,7 +124,7 @@ struct RegionPokemon: Decodable {
         
         self.class = PokemonClass(rawValue: try container.decodeIfPresent(String.self, forKey: .class) ?? "") ?? .common
         self.types = PokemonElement.normalizedTypes(primaryType: self.primaryType, secondaryType: self.secondaryType)
-        self.cpData = DataManager.shared.getCPData(dexNumber)
+        self.cpData = DataManager.shared.getCPData(dexNumber, formID)
     }
 }
 

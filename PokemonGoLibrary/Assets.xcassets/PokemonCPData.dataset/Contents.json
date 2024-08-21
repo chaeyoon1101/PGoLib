@@ -1,0 +1,12 @@
+{
+  "data" : [
+    {
+      "filename" : "PokemonCPData.json",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
