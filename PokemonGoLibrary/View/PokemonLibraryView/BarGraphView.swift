@@ -26,3 +26,7 @@ struct BarGraphView: View {
         .frame(height: 8)
     }
 }
+
+#Preview {
+    BarGraphView(value: 40, barColor: .cyan)
+}

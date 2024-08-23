@@ -88,4 +88,16 @@ enum PokemonTypes: String, CaseIterable {
         case .water:    return "물"
         }
     }
+    
+    var weatherBoost: WeatherType {
+        switch self {
+        case .grass, .fire, .ground:     return WeatherType.sunny
+        case .normal, .rock:             return WeatherType.partlyCloudy
+        case .fairy, .fighting, .poison: return WeatherType.cloudy
+        case .bug, .electric, .water:    return WeatherType.rainy
+        case .flying, .dragon, .psychic: return WeatherType.windy
+        case .ice, .steel:               return WeatherType.snow
+        case .dark, .ghost:              return WeatherType.fog
+        }
+    }
 }

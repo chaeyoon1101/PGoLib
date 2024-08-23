@@ -71,33 +71,41 @@ struct PokemonStatView: View {
                     .padding()
                 }
             }
-            
-            
-            // 세 번째 줄: 두 개의 사각형
+        
             HStack(spacing: 8) {
                 PokemonStatItem {
-                    VStack(alignment: .leading, spacing: 8) {
+                    VStack(alignment: .leading) {
                         
                         Text("WEATHER BOOST")
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
                         
-                        Text("aa")
                         Spacer()
-//                        HStack {
-//                            ZStack {
-//                                Circle()
-//                                    .stroke(lineWidth: 1)
-//                                    .frame(width: 40, height: 40)
-//                                
-//                                Image(systemName: "cloud")
-//                                    .resizable()
-//                                    .frame(width: 24, height: 24)
-//                            }
-//                        }
-//                        .padding()
+                        
+                        HStack {
+                            ForEach(pokemon.types, id: \.rawValue) { type in
+                                let weatherBoost = type.weatherBoost
+                                RoundedRectangle(cornerRadius: 24)
+                                    .fill(
+                                        LinearGradient(
+                                            colors: weatherBoost.gradientColor,
+                                            startPoint: .topLeading,
+                                            endPoint: .topTrailing
+                                        )
+                                    )
+                                    .overlay(
+                                        HStack {
+                                            Image(weatherBoost.image)
+                                                .resizable()
+                                                .renderingMode(.template)
+                                                .aspectRatio(contentMode: .fit)
+                                                .foregroundStyle(Color.white)
+                                                .frame(width: 32, height: 32)
+                                        }
+                                    )
+                            }
+                        }   
                     }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .padding()
                 }
                 PokemonStatItem {
@@ -107,6 +115,5 @@ struct PokemonStatView: View {
         }
         .padding()
         .fontWeight(.bold)
-//            BarGraphView(value: 30, barColor: .green)
     }
 }
