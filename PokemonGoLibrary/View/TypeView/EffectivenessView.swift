@@ -35,7 +35,6 @@ struct EffectivenessView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .foregroundStyle(Color.white)
         }
-
     }
 }
 

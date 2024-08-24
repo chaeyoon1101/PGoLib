@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftSoup
 
 class DataModel: ObservableObject {
     @Published var pokemons: Pokemon = []
