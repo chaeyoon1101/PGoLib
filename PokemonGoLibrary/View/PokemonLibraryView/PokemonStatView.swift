@@ -10,6 +10,11 @@ import SwiftUI
 struct PokemonStatView: View {
     let pokemon: PokemonElement
     
+    private let maxCPValue = 5629.0
+    private let maxATKValue = 414.0
+    private let maxDEFValue = 505.0
+    private let maxSTAValue = 452.0
+    
     var body: some View {
         VStack(spacing: 16) {
             // CP STAT
@@ -20,10 +25,16 @@ struct PokemonStatView: View {
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
                         
-                        Text("4329 CP")
+                        Text("\(pokemon.cpData.last ?? "") CP")
                             .font(.title)
                             .foregroundStyle(.green)
-                        BarGraphView(value: 60, barColor: .green)
+                        BarGraphView(
+                            value: calculateRatio(
+                                valueToCalculate: Double(pokemon.cpData.last ?? "0"),
+                                maxValue: maxCPValue
+                            ),
+                            barColor: .green
+                        )
                     }
                     .padding()
                 }
@@ -37,10 +48,16 @@ struct PokemonStatView: View {
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
                         
-                        Text("254 ATK")
+                        Text("\(pokemon.stats?.attack ?? 0) ATK")
                             .font(.title3)
                             .foregroundStyle(.blue)
-                        BarGraphView(value: 60, barColor: .blue)
+                        BarGraphView(
+                            value: calculateRatio(
+                                valueToCalculate: Double(pokemon.stats?.attack ?? 0),
+                                maxValue: maxATKValue
+                            ),
+                            barColor: .blue
+                        )
                     }
                     .padding()
                 }
@@ -50,10 +67,16 @@ struct PokemonStatView: View {
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
                         
-                        Text("236 DEF")
+                        Text("\(pokemon.stats?.defense ?? 0) DEF")
                             .font(.title3)
                             .foregroundStyle(.yellow)
-                        BarGraphView(value: 55, barColor: .yellow)
+                        BarGraphView(
+                            value: calculateRatio(
+                                valueToCalculate: Double(pokemon.stats?.defense ?? 0),
+                                maxValue: maxDEFValue
+                            ),
+                            barColor: .yellow
+                        )
                     }
                     .padding()
                 }
@@ -63,10 +86,16 @@ struct PokemonStatView: View {
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
                         
-                        Text("192 STA")
+                        Text("\(pokemon.stats?.stamina ?? 0) STA")
                             .font(.title3)
                             .foregroundStyle(.red)
-                        BarGraphView(value: 45, barColor: .red)
+                        BarGraphView(
+                            value: calculateRatio(
+                                valueToCalculate: Double(pokemon.stats?.stamina ?? 0),
+                                maxValue: maxSTAValue
+                            ),
+                            barColor: .red
+                        )
                     }
                     .padding()
                 }
@@ -76,7 +105,6 @@ struct PokemonStatView: View {
             HStack(spacing: 8) {
                 PokemonStatItem {
                     VStack(alignment: .leading) {
-                        
                         Text("WEATHER BOOST")
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
@@ -131,5 +159,11 @@ struct PokemonStatView: View {
         }
         .padding()
         .fontWeight(.bold)
+    }
+    
+    func calculateRatio(valueToCalculate: Double?, maxValue: Double) -> CGFloat {
+        guard let value = valueToCalculate else { return 0.0 }
+        
+        return value / maxValue * 100
     }
 }
