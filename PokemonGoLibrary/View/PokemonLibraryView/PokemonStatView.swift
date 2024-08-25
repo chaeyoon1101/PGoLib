@@ -72,6 +72,7 @@ struct PokemonStatView: View {
                 }
             }
         
+            // Weather boost, pokemon class STAT
             HStack(spacing: 8) {
                 PokemonStatItem {
                     VStack(alignment: .leading) {
@@ -79,8 +80,6 @@ struct PokemonStatView: View {
                         Text("WEATHER BOOST")
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
-                        
-                        Spacer()
                         
                         HStack {
                             ForEach(pokemon.types, id: \.rawValue) { type in
@@ -109,7 +108,24 @@ struct PokemonStatView: View {
                     .padding()
                 }
                 PokemonStatItem {
-                    Text("Blue")
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("CLASS")
+                            .font(.subheadline)
+                            .foregroundStyle(.secondary)
+                        
+                        
+                        LinearGradient(
+                            colors: pokemon.class.gradientColor,
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+                        .mask {
+                            Text(pokemon.class.name)
+                                .font(.title3)
+                        }
+                        
+                    }
+                    .padding()
                 }
             }
         }
