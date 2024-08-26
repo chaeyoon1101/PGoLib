@@ -20,7 +20,7 @@ class DataModel: ObservableObject {
     
     func fetchPokemons() async {
         do {
-            let pokemons = try await PokemonGoManager.fetchPokemonData()
+            let pokedex = try DataManager.shared.loadPokedex()
             
             DispatchQueue.main.async {
                 self.pokedex = pokedex
@@ -29,6 +29,7 @@ class DataModel: ObservableObject {
             }
         } catch let error {
             print(error)
+            print(error.localizedDescription)
         }
     }
     

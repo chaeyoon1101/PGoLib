@@ -10,27 +10,7 @@ import SwiftSoup
 
 final class PokemonGoManager {
     static let decoder = JSONDecoder()
-    
-    static func fetchPokemonData() async throws -> Pokemon {
-        guard let url = URL(string: "https://pokemon-go-api.github.io/pokemon-go-api/api/pokedex.json") else {
-            throw ErrorCases.invaildURL
-        }
-        
-        let (data, response) = try await URLSession.shared.data(from: url)
-        
-        guard let response = response as? HTTPURLResponse,
-                response.statusCode == 200 else {
-            throw ErrorCases.invaildResponse
-        }
-        
-        do {
-            return try decoder.decode(Pokemon.self, from: data)
-        } catch {
-            print(error.localizedDescription)
-            throw ErrorCases.invaildData
-        }
-    }
-    
+
     static func fetchLeagueData(type: BattleLeagueTypes) async throws -> BattleLeague {
         guard let url = URL(string: type.url) else {
             throw ErrorCases.invaildURL

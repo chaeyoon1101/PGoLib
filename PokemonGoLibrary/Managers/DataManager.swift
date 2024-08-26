@@ -19,6 +19,20 @@ final class DataManager {
     
     private var pokemonCPDataPerLevel: [String: [String]] = [:]
     
+    // MARK: - Pokedex data
+    
+    func loadPokedex() throws -> Pokedex {
+        guard let asset = NSDataAsset.init(name: "pokedex") else {
+            throw ErrorCases.invaildData
+        }
+        
+        let pokedex = try decoder.decode(Pokedex.self, from: asset.data)
+        
+        return pokedex
+    }
+    
+    // MARK: - CP Data
+    
     func getCPData(_ dexNumber: Int, _ formID: String) -> [String] {
         guard let cpData = pokemonCPDataPerLevel[String(dexNumber)] else {
             return []
