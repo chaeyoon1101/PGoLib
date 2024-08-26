@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PokemonDetailView: View {
-    let pokemon: PokemonElement
+    let pokemon: Pokemon
 
     var body: some View {
         ScrollView {

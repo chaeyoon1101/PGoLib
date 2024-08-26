@@ -19,7 +19,7 @@ struct PokemonLibraryView: View {
                 SearchBar(text: $searchBarText)
                 ScrollView {
                     LazyVGrid(columns: [GridItem(.flexible())], spacing: 10) {
-                        ForEach(dataModel.pokemons, id: \.id) { pokemon in
+                        ForEach(dataModel.pokedex, id: \.id) { pokemon in
                             if (searchBarText == "" || isSearchedPokemon(pokemon)) {
                                 NavigationLink {
                                     PokemonDetailView(pokemon: pokemon)
@@ -37,7 +37,7 @@ struct PokemonLibraryView: View {
         .ignoresSafeArea(edges: .bottom)
     }
     
-    private func isSearchedPokemon(_ pokemon: PokemonElement) -> Bool {
+    private func isSearchedPokemon(_ pokemon: Pokemon) -> Bool {
         let checkNameEquality = pokemon.names.languages.values.map { name in
             let lowercasedName = name.lowercased()
             let lowercasedText = searchBarText.lowercased()

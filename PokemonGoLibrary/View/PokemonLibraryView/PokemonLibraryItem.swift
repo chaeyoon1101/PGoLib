@@ -9,7 +9,7 @@ import SwiftUI
 import Kingfisher
 
 struct PokemonLibraryItem: View {
-    let pokemon: PokemonElement
+    let pokemon: Pokemon
     
     var body: some View {
         HStack {

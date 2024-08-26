@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PokemonStatView: View {
-    let pokemon: PokemonElement
+    let pokemon: Pokemon
     
     private let maxCPValue = 5629.0
     private let maxATKValue = 414.0

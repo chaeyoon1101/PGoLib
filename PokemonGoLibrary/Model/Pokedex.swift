@@ -1,8 +1,8 @@
 import Foundation
 
-typealias Pokemon = [PokemonElement]
+typealias Pokedex = [Pokemon]
 
-struct PokemonElement: Decodable, Identifiable {
+struct Pokemon: Decodable, Identifiable {
     let id: String
     let formID: String
     let dexNumber: Int
@@ -48,7 +48,7 @@ struct PokemonElement: Decodable, Identifiable {
         self.megaEvolutions = try? container.decodeIfPresent([String: MegaEvolution].self, forKey: .megaEvolutions)
         
         self.class = PokemonClass(rawValue: try container.decodeIfPresent(String.self, forKey: .class) ?? "") ?? .common
-        self.types = PokemonElement.normalizedTypes(primaryType: self.primaryType, secondaryType: self.secondaryType)
+        self.types = Pokemon.normalizedTypes(primaryType: self.primaryType, secondaryType: self.secondaryType)
         self.cpData = DataManager.shared.getCPData(dexNumber, formID)
     }
     
@@ -123,7 +123,7 @@ struct RegionPokemon: Decodable {
         self.megaEvolutions = try? container.decodeIfPresent([String: MegaEvolution].self, forKey: .megaEvolutions)
         
         self.class = PokemonClass(rawValue: try container.decodeIfPresent(String.self, forKey: .class) ?? "") ?? .common
-        self.types = PokemonElement.normalizedTypes(primaryType: self.primaryType, secondaryType: self.secondaryType)
+        self.types = Pokemon.normalizedTypes(primaryType: self.primaryType, secondaryType: self.secondaryType)
         self.cpData = DataManager.shared.getCPData(dexNumber, formID)
     }
 }

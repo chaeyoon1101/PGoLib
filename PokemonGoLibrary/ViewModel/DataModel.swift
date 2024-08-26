@@ -8,7 +8,7 @@
 import Foundation
 
 class DataModel: ObservableObject {
-    @Published var pokemons: Pokemon = []
+    @Published var pokedex: Pokedex = []
     @Published var pokemonTiers: [PokemonTier] = []
     @Published var battleLeagueTiers = BattleLeagueTiers()
     
@@ -23,7 +23,7 @@ class DataModel: ObservableObject {
             let pokemons = try await PokemonGoManager.fetchPokemonData()
             
             DispatchQueue.main.async {
-                self.pokemons = pokemons
+                self.pokedex = pokedex
                 
                 print("포켓몬 데이터 가져옴")
             }
@@ -66,8 +66,8 @@ class DataModel: ObservableObject {
         }
     }
     
-    func findPokemon(id: String) -> PokemonElement? {
-        var pokemon: PokemonElement?
+    func findPokemon(id: String) -> Pokemon? {
+        var pokemon: Pokemon?
         
         let splitedId = id.split(separator: "_").map { String($0) }
         var storedId: [String] = []
@@ -79,9 +79,9 @@ class DataModel: ObservableObject {
             
             if let dexNumber = localize.dexNumbers[storedId.joined(separator: "_")] {
                 if dexNumber < 902 {
-                    pokemon = pokemons[dexNumber - 1]
+                    pokemon = pokedex[dexNumber - 1]
                 } else {
-                    pokemon = pokemons[dexNumber - 2]
+                    pokemon = pokedex[dexNumber - 2]
                 }
                 
                 break

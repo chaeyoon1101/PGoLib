@@ -9,7 +9,7 @@ import SwiftUI
 import Kingfisher
 
 struct PokemonPageView: View {
-    let pokemon: PokemonElement
+    let pokemon: Pokemon
     @State var isShiny: Bool = false
     
     var body: some View {
