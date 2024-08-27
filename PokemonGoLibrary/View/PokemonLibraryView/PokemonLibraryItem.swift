@@ -59,11 +59,10 @@ struct PokemonLibraryItem: View {
     }
     
     var pokemonImage: some View {
-        let url = pokemon.assets?.image
+        let url = pokemon.officialImage ?? pokemon.assets?.image ?? ""
         
-        return KFImage(URL(string: url ?? ""))
+        return KFImage(URL(string: url))
             .resizable()
             .aspectRatio(contentMode: .fit)
-            
     }
 }

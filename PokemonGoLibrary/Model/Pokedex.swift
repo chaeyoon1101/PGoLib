@@ -17,6 +17,7 @@ struct Pokemon: Decodable, Identifiable {
     let cinematicMoves: [String: PokemonMove]?
     let eliteQuickMoves: [String: PokemonMove]?
     let eliteCinematicMoves: [String: PokemonMove]?
+    let officialImage: String?
     let assets: Assets?
     let assetForms: [AssetWithType]
     let regionForms: [String: RegionPokemon]?
@@ -43,6 +44,7 @@ struct Pokemon: Decodable, Identifiable {
         self.cinematicMoves = try? container.decode([String: PokemonMove].self, forKey: .cinematicMoves)
         self.eliteQuickMoves = try? container.decode([String: PokemonMove].self, forKey: .eliteQuickMoves)
         self.eliteCinematicMoves = try? container.decode([String: PokemonMove].self, forKey: .eliteCinematicMoves)
+        self.officialImage = try? container.decode(String.self, forKey: .officialImage)
         self.assets = try? container.decode(Assets.self, forKey: .assets)
         self.regionForms = try? container.decodeIfPresent([String: RegionPokemon].self, forKey: .regionForms)
         self.megaEvolutions = try? container.decodeIfPresent([String: MegaEvolution].self, forKey: .megaEvolutions)
@@ -56,7 +58,7 @@ struct Pokemon: Decodable, Identifiable {
         case formID = "formId"
         case dexNumber = "dexNr"
         case `class` = "pokemonClass"
-        case id, generation, names, stats, primaryType, secondaryType, quickMoves, cinematicMoves, eliteQuickMoves, eliteCinematicMoves, assets, assetForms, regionForms, evolutions, hasMegaEvolution, megaEvolutions
+        case id, generation, names, stats, primaryType, secondaryType, quickMoves, cinematicMoves, eliteQuickMoves, eliteCinematicMoves, officialImage, assets, assetForms, regionForms, evolutions, hasMegaEvolution, megaEvolutions
     }
     
     static func normalizedTypes(primaryType: PokemonType, secondaryType: PokemonType?) -> [PokemonTypes] {
@@ -87,6 +89,7 @@ struct RegionPokemon: Decodable {
     let cinematicMoves: [String: PokemonMove]?
     let eliteQuickMoves: [String: PokemonMove]?
     let eliteCinematicMoves: [String: PokemonMove]?
+    let officialImage: String?
     let assets: Assets?
     let regionForms: [String: RegionPokemon]?
     let evolutions: [Evolution]
@@ -98,7 +101,7 @@ struct RegionPokemon: Decodable {
         case formID = "formId"
         case dexNumber = "dexNr"
         case `class` = "pokemonClass"
-        case id, generation, names, stats, primaryType, secondaryType, quickMoves, cinematicMoves, eliteQuickMoves, eliteCinematicMoves, assets, regionForms, evolutions, hasMegaEvolution, megaEvolutions
+        case id, generation, names, stats, primaryType, secondaryType, quickMoves, cinematicMoves, eliteQuickMoves, eliteCinematicMoves, officialImage, assets, regionForms, evolutions, hasMegaEvolution, megaEvolutions
     }
     
     init(from decoder: any Decoder) throws {
@@ -118,6 +121,7 @@ struct RegionPokemon: Decodable {
         self.cinematicMoves = try? container.decode([String: PokemonMove].self, forKey: .cinematicMoves)
         self.eliteQuickMoves = try? container.decode([String: PokemonMove].self, forKey: .eliteQuickMoves)
         self.eliteCinematicMoves = try? container.decode([String: PokemonMove].self, forKey: .eliteCinematicMoves)
+        self.officialImage = try? container.decode(String.self, forKey: .officialImage)
         self.assets = try? container.decode(Assets.self, forKey: .assets)
         self.regionForms = try? container.decodeIfPresent([String: RegionPokemon].self, forKey: .regionForms)
         self.megaEvolutions = try? container.decodeIfPresent([String: MegaEvolution].self, forKey: .megaEvolutions)
