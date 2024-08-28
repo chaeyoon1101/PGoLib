@@ -170,7 +170,7 @@ struct Item: Decodable {
 
 struct AssetWithType: Decodable {
     let image: String
-    let shinyImage: String
+    let shinyImage: String?
     let form: String?
     let costume: String?
     let isFemale: Bool
@@ -178,7 +178,7 @@ struct AssetWithType: Decodable {
 
 struct Assets: Decodable {
     let image: String
-    let shinyImage: String
+    let shinyImage: String?
 }
 
 struct PokemonMove: Decodable {
