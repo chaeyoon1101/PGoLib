@@ -51,7 +51,7 @@ struct PokemonPageView: View {
             }
             .padding()
         }
-        .frame(height: 400)
+        .frame(height: 200)
     }
     
     var pokemonImage: some View {

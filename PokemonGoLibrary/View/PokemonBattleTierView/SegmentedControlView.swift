@@ -21,17 +21,17 @@ struct SegmentedControlView: View {
                 } label: {
                     VStack {
                         Text(segments[index])
-                            .font(.footnote)
+                            .font(.subheadline)
                             .fontWeight(.bold)
                             .foregroundColor(selectedIndex == index ? .primary: Color(uiColor: .systemGray))
                         ZStack {
                             Capsule()
                                 .fill(Color.clear)
-                                .frame(height: 4)
+                                .frame(height: 2)
                             if selectedIndex == index {
                                 Capsule()
                                     .fill(Color.primary)
-                                    .frame(height: 4)
+                                    .frame(height: 2)
                                     .matchedGeometryEffect(id: "Tab", in: name)
                             }
                         }
