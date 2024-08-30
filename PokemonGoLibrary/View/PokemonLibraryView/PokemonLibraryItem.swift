@@ -54,7 +54,7 @@ struct PokemonLibraryItem: View {
         .frame(width: 360, height: 120)
         .background {
             RoundedRectangle(cornerRadius: 16)
-                .fill(Color.white.opacity(0.1))
+                .fill(Color.itemBackground)
         }
     }
     
