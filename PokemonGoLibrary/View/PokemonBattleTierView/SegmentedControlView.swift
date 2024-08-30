@@ -24,6 +24,8 @@ struct SegmentedControlView: View {
                             .font(.subheadline)
                             .fontWeight(.bold)
                             .foregroundColor(selectedIndex == index ? .primary: Color(uiColor: .systemGray))
+                            .frame(maxWidth: .infinity)
+                            .contentShape(Rectangle())
                         ZStack {
                             Capsule()
                                 .fill(Color.clear)
@@ -36,7 +38,8 @@ struct SegmentedControlView: View {
                             }
                         }
                     }
-                }.buttonStyle(PlainButtonStyle())
+                }
+                .buttonStyle(PlainButtonStyle())
             }
         }
     }
