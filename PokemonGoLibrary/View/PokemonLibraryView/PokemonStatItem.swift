@@ -16,7 +16,7 @@ struct PokemonStatItem<Content: View>: View {
             .frame(maxWidth: .infinity)
             .background(
                 RoundedRectangle(cornerRadius: 16)
-                    .fill(Color.gray.opacity(0.1))
+                    .fill(Color.itemBackground)
                     .stroke(Color.secondary, lineWidth: 1)
             )
     }
