@@ -1,13 +1,13 @@
 //
-//  PokemonStatView.swift
+//  PokemonStatGrid.swift
 //  PGoLib
 //
-//  Created by 임채윤 on 8/22/24.
+//  Created by 임채윤 on 8/31/24.
 //
 
 import SwiftUI
 
-struct PokemonStatView: View {
+struct PokemonStatGrid: View {
     let pokemon: Pokemon
     
     private let maxCPValue = 5629.0
@@ -131,7 +131,7 @@ struct PokemonStatView: View {
                                         }
                                     )
                             }
-                        }   
+                        }
                     }
                     .padding()
                 }
