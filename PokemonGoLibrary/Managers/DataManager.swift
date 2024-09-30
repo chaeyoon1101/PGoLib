@@ -21,6 +21,13 @@ final class DataManager {
     
     // MARK: - Pokedex data
     
+    func getExamplePokemon(dex: Int) -> Pokemon {
+        let asset = NSDataAsset.init(name: "pokedex")!
+        let pokedex = try? JSONDecoder().decode(Pokedex.self, from: asset.data)
+        
+        return pokedex![dex - 1]
+    }
+    
     func loadPokedex() throws -> Pokedex {
         guard let asset = NSDataAsset.init(name: "pokedex") else {
             throw ErrorCases.invaildData

@@ -70,3 +70,9 @@ enum PokemonDetailViewType: Int, CaseIterable {
         return allCases.map { $0.name }
     }
 }
+
+#Preview {
+    PokemonDetailView(
+        pokemon: DataManager.shared.getExamplePokemon(dex: 1)
+    )
+}
