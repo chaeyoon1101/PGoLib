@@ -138,6 +138,7 @@ struct MegaEvolution: Decodable {
     let stats: PokemonStats
     let primaryType: PokemonType
     let secondaryType: PokemonType?
+    let officialImage: String?
     let assets: Assets
 }
 

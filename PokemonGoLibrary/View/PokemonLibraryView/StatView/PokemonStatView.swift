@@ -12,6 +12,8 @@ struct PokemonStatView: View {
     
     var body: some View {
         PokemonStatGrid(pokemon: pokemon)
+        
+        PokemonFormsView(pokemon: pokemon)
     }
 }
 
